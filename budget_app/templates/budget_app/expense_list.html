@@ -1,0 +1,22 @@
+{% extends 'budget_app/base.html' %}
+
+{% block page_content %}
+
+<a href="{% url 'budget_app:expense_new' %}">
+      Add expense
+</a>
+
+	{% for expense in expenses %}
+		<ul>
+			<p>{{ expense.exp_type }}</p>
+			<time>purchased: {{ expense.exp_date }}</time>
+			<p>amount: {{ expense.amount }}</p>
+			<form action="{% url 'budget_app:expense_del' pk=expense.pk %}" method="post">
+				{% csrf_token %}
+				<input type="submit" value="delete expense">
+			</form>
+		</ul>
+		<br>
+	{% endfor %}
+{% endblock %}
+
