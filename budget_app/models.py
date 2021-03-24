@@ -1,4 +1,5 @@
 from django.db import models
+from datetime import date
 
 
 
@@ -7,17 +8,17 @@ class ExpenseInfo(models.Model):
     cost = models.DecimalField(max_digits=8, decimal_places=2)
 
     class Meta:
-        abstract = true
+        abstract = True
 
 
 class PayPeriod(models.Model):
     start_date = models.DateField()
     end_date=models.DateField()
-    paycheck = models.DecimalField(max_digits=8, decmial_places=2)
+    paycheck = models.DecimalField(max_digits=8, decimal_places=2)
 
 
 class FixedExpense(ExpenseInfo):
-    exp_type = models.Charfield(max_length=24)
+    exp_type = models.CharField(max_length=24)
     pay_period = models.ForeignKey(PayPeriod, on_delete=models.CASCADE)
 
     def __str__(self):
@@ -30,7 +31,7 @@ class Envelopes(models.Model):
     pay_period = models.ForeignKey(PayPeriod, on_delete=models.CASCADE)
 
     def __str__(self):
-        return self.evn_name
+        return self.env_name
 
 
 class NonFixedExpense(ExpenseInfo):
