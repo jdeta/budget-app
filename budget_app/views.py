@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import PayPeriod, FixedExpense, Envelopes, NonFixedExpense
-#from .forms import ExpenseForm
+from .forms import PayPeriodForm
 
 def budget_dashboard(request):
     current_period = PayPeriod.objects.latest('start_date')
@@ -11,30 +11,20 @@ def budget_dashboard(request):
     return render(request, 'budget_app/dashboard.html', context)
 
 
-
-
 def new_pay_period(request):
-    pass
+    if request.method == 'POST':
+        pp_form = PayPeriodForm(request.POST)
 
+        if form.is_valid():
+            pp_added = pp_form.save()
+            
+            return redirect('budget_app:dashboard')
 
+        else:
+            pp_form = PayPeriodForm()
 
+        return render(request, 'budget_app/new_pp.html', {'pp_form': pp_form})
 
-#def expense_list(request):
-#    expenses = Expense.objects.all()
-#    return render(request, 'budget_app/expense_list.html', {'expenses': expenses})
-
-#def expense_new(request):
-    
-#    if request.method == 'POST':
-#        form = ExpenseForm(request.POST)
-
- #       if form.is_valid():
- #           expense = form.save()
- #           return redirect('budget_app:expense_list')
-
- #   else:
- #       form = ExpenseForm()
- #   return render(request, 'budget_app/expense_add.html', {'form': form})
 
 #def expense_del(request, pk):
 #    goner = get_object_or_404(Expense, pk=pk)

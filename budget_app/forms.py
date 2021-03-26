@@ -1,8 +1,8 @@
 from django import forms
 from .models import PayPeriod
 
-#class ExpenseForm(forms.ModelForm):
+class PayPeriodForm(forms.ModelForm):
 
-#    class Meta:
-#        model = Expense
-#        fields = ('exp_type', 'amount', 'exp_date')
+    class Meta:
+        model = PayPeriod
+        fields = ('start_date', 'end_date', 'paycheck')
