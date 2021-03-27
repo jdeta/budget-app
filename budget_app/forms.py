@@ -5,4 +5,4 @@ class PayPeriodForm(forms.ModelForm):
 
     class Meta:
         model = PayPeriod
-        fields = ('start_date', 'end_date', 'paycheck')
+        fields = ('start_date',  'paycheck')
