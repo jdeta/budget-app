@@ -16,14 +16,14 @@ def new_pay_period(request):
     if request.method == 'POST':
         pp_form = PayPeriodForm(request.POST)
 
-        if form.is_valid():
+        if pp_form.is_valid():
             pp_added = pp_form.save(commit=False)
             pp_added.end_date = pp_added.start_date + timedelta(days=13)
             pp_added.save()
-            return redirect('budget_app:dashboard')
+            return redirect('/')
 
-        else:
-            pp_form = PayPeriodForm()
+    else:
+        pp_form = PayPeriodForm()
 
         return render(request, 'budget_app/new_pp.html', {'pp_form': pp_form})
 
