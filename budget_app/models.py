@@ -13,7 +13,7 @@ class ExpenseInfo(models.Model):
 
 class PayPeriod(models.Model):
     start_date = models.DateField()
-    end_date=models.DateField()
+    end_date = models.DateField()
     paycheck = models.DecimalField(max_digits=8, decimal_places=2)
 
 
