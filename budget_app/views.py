@@ -24,7 +24,20 @@ def new_pay_period(request):
 
     else:
         pp_form = PayPeriodForm()
-
         return render(request, 'budget_app/new_pp.html', {'pp_form': pp_form})
 
 
+def new_envelope(request, payperiod_id):
+    if request.method == 'POST':
+        env_form = EnvelopeForm(request.POST)
+
+        if env_form.is_valid():
+            env_added = evn_form.save(commit=False)
+            current_period = PayPeriod.objects.latest('start_date')
+            env_added.pay_period = current_period
+            env_added.save()
+            return redirect('/')
+
+    else:
+        env_form =EnvelopeForm()
+        return render(request, 'budget_app/new_env.html', {'env_form': env_form}
