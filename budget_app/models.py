@@ -3,40 +3,23 @@ from datetime import date
 
 
 
-class ExpenseInfo(models.Model):
-    date = models.DateField(default=date.today)
-    cost = models.DecimalField(max_digits=8, decimal_places=2)
-
-    class Meta:
-        abstract = True
-
-
-class PayPeriod(models.Model):
-    start_date = models.DateField()
-    end_date = models.DateField()
-    paycheck = models.DecimalField(max_digits=8, decimal_places=2)
-
-
-class FixedExpense(ExpenseInfo):
-    exp_type = models.CharField(max_length=24)
-    pay_period = models.ForeignKey(PayPeriod, on_delete=models.CASCADE)
+class Expense(models.Model):
+    month = models.CharField(max_length=9)
+    category = models.CharField(max_length=64)
+    allocated = models.DecminalField(max_digits=8, decimal_places=2)
+    spent = models.DecminalField(max_digits=8, decimal_places=2)
+    remaining = models.DecminalField(max_digits=8, decimal_places=2)
 
     def __str__(self):
-        return self.exp_type
+        return '%s %s' % (self.month, self.category)
 
-
-class Envelopes(models.Model):
-    env_name = models.CharField(max_length=24)
-    amount = models.DecimalField(max_digits=8, decimal_places=2)
-    pay_period = models.ForeignKey(PayPeriod, on_delete=models.CASCADE)
-
-    def __str__(self):
-        return self.env_name
-
-
-class NonFixedExpense(ExpenseInfo):
-    envelope = models.ForeignKey(Envelopes, on_delete=models.CASCADE)
+class Transaction(models.Model):
+    date =models.DateField(default=date.today)
+    payee = models.CharField(max_length=64)
+    category = models.CharField(max_length=64)
+    inflow = models.DecminalField(max_digits=8, decimal_places=2)
+    outflow = models.DecimalField(max_digits=8, decimal_places=2)
     note = models.TextField()
 
     def __str__(self):
-        return self.note
+        return '%s %s %s' % (self.payee, self.category, self.note)
