@@ -1,8 +1,5 @@
 from django.contrib import admin
-from .models import PayPeriod, FixedExpense, Envelopes, NonFixedExpense
+from .models import Expense, Transaction
 
-admin.site.register(PayPeriod)
-admin.site.register(FixedExpense)
-admin.site.register(Envelopes)
-admin.site.register(NonFixedExpense)
-
+admin.site.register(Expense)
+admin.site.register(Transaction)

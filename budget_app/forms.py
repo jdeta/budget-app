@@ -1,8 +1,15 @@
 from django import forms
-from .models import PayPeriod
+from .models import Expense, Transaction
 
-class PayPeriodForm(forms.ModelForm):
+class NewExpenseForm(forms.ModelForm):
 
     class Meta:
-        model = PayPeriod
-        fields = ('start_date',  'paycheck')
+        model = Expense
+        fields = ('category',)
+
+
+class NewTransactionForm(forms.ModelForm):
+
+    class Meta:
+        model = Transaction
+        fields = ('date', 'recipient', 'category', 'inflow', 'outflow', 'note')

@@ -32,4 +32,4 @@ def new_expense(request):
 
     else:
         expense_form = NewExpenseForm()
-        return render(request, 'budget_app/expense_new.html', {'expense_form': expense_form}
+        return render(request, 'budget_app/expense_new.html', {'expense_form': expense_form})
