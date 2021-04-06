@@ -27,7 +27,12 @@ def new_expense(request):
         expense_form = NewExpenseForm(request.POST)
 
         if expense_form.is_valid():
-            expense_form.save()
+            expense_added = expense_form.save(commit=False)
+            expense_added.allocated = 0.00
+            expense_added.disbursed = 0.00
+            expense_added.remaining = 0.00
+            expense_added.month = 'Apr 2021'
+            expense_added.save()
             return redirect('/')
 
     else:

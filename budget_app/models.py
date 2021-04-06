@@ -11,7 +11,7 @@ class Expense(models.Model):
     remaining = models.DecimalField(max_digits=8, decimal_places=2)
 
     def __str__(self):
-        return f'{self.month} {self.category}'
+        return f'{self.category} {self.month}'
 
 class Transaction(models.Model):
     date =models.DateField(default=date.today)
@@ -22,4 +22,4 @@ class Transaction(models.Model):
     note = models.TextField()
 
     def __str__(self):
-        return f'{self.payee} {self.category} {self.note}'
+        return f'{self.recipient} {self.category} {self.note}'

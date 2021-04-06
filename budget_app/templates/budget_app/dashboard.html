@@ -2,9 +2,18 @@
 
 {% block page_content %}
 
-<a href="{% url 'budget_app:new_pay_period' %}">
+<button type="button" class="btn btn-link">
+<a href="{% url 'budget_app:new_expense' %}">
       Add expense
 </a>
+</button>
+
+<a class="btn btn-primary" href="{% url 'budget_app:new_transaction' %}">
+	New Transaction
+</a>
+
+
+
 
 	{% for expense in expenses %}
 		<ul>
