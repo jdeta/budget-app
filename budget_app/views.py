@@ -5,8 +5,8 @@ from datetime import date, timedelta
 
 
 def budget_dashboard(request):
-    context = {}
-    return render(request, 'budget_app/dashboard.html', context)
+    expenses = Expense.objects.all()
+    return render(request, 'budget_app/dashboard.html', {'expenses':expenses})
 
 
 def new_transaction(request):

@@ -14,18 +14,25 @@
 
 
 
-
-	{% for expense in expenses %}
-		<ul>
-			<p>{{ expense.exp_type }}</p>
-			<time>purchased: {{ expense.exp_date }}</time>
-			<p>amount: {{ expense.amount }}</p>
-			<form action="{% url 'budget_app:expense_del' pk=expense.pk %}" method="post">
-				{% csrf_token %}
-				<input type="submit" value="delete expense">
-			</form>
-		</ul>
-		<br>
-	{% endfor %}
+		<table class="table">
+		  <thead>
+		    <tr>
+		      <th scope="col">Allocated</th>
+		      <th scope="col">Category</th>
+		      <th scope="col">Disbursed</th>
+		      <th scope="col">Remaining</th>
+    		    </tr>
+		  </thead>
+		{% for expense in expenses %}
+		  <tbody>
+		    <tr>
+			    <td>{{ expense.allocated }}</td>
+			    <td>{{ expense.category }}</th>
+			    <td>{{ expense.disbursed }}</td>
+			    <td>{{ expense.remaining }}</td>
+		    </tr>
+		  </tbody>
+	        {% endfor %}
+		</table>	
 {% endblock %}
 
