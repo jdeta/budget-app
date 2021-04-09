@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
+from django.db.models import Sum
 from .models import Expense, Transaction
 from .forms import NewTransactionForm, NewExpenseForm
 from datetime import date, timedelta
@@ -6,7 +7,13 @@ from datetime import date, timedelta
 
 def budget_dashboard(request):
     expenses = Expense.objects.all()
-    return render(request, 'budget_app/dashboard.html', {'expenses':expenses})
+    unbudgeted = Transaction.objects.all().aggregate(Sum('inflow'))['inflow__sum']
+    context = {
+            'expenses':expenses,
+            'unbudgeted':unbudgeted,
+    }
+
+    return render(request, 'budget_app/dashboard.html', context)
 
 
 def new_transaction(request):
