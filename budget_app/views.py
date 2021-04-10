@@ -45,3 +45,9 @@ def new_expense(request):
     else:
         expense_form = NewExpenseForm()
         return render(request, 'budget_app/expense_new.html', {'expense_form': expense_form})
+
+
+def expense_detail(request, expense_id):
+    specific_expense = get_object_or_404(Expense, pk=expense_id)
+    return render(request, 'budget_app/expense_detail.html', {'specific_expense':specific_expense})
+

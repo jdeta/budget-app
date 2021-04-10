@@ -30,7 +30,7 @@
 		  <tbody>
 		    <tr>
 			    <td>{{ expense.allocated }}</td>
-			    <td>{{ expense.category }}</th>
+			    <td><a href="{% url 'budget_app:expense_detail' expense.id %}">{{ expense.category }}</a></th>
 			    <td>{{ expense.disbursed }}</td>
 			    <td>{{ expense.remaining }}</td>
 		    </tr>
