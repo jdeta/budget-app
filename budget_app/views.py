@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.db.models import Sum
 from .models import Expense, Transaction
-from .forms import NewTransactionForm, NewExpenseForm
+from .forms import NewTransactionForm, NewExpenseForm, UpdateAllocationForm
 from datetime import date, timedelta
 
 
@@ -49,5 +49,13 @@ def new_expense(request):
 
 def expense_detail(request, expense_id):
     specific_expense = get_object_or_404(Expense, pk=expense_id)
-    return render(request, 'budget_app/expense_detail.html', {'specific_expense':specific_expense})
 
+    if request.method == 'POST':
+        allocated_form = UpdateAllocationForm(request.POST, instance=specific_expense)
+
+        if allocated_form.is_valid():
+            allocated_form.save()
+            return redirect('/')
+    else:
+        allocated_form = UpdateAllocationForm(instance=specific_expense)
+        return render(request, 'budget_app/expense_detail.html', {'specific_expense':specific_expense, 'allocated_form':allocated_form})

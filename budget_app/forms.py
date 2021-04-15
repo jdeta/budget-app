@@ -7,6 +7,11 @@ class NewExpenseForm(forms.ModelForm):
         model = Expense
         fields = ('category',)
 
+class UpdateAllocationForm(forms.ModelForm):
+
+    class Meta:
+        model = Expense
+        fields = ('allocated',)
 
 class NewTransactionForm(forms.ModelForm):
 
