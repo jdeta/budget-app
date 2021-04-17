@@ -7,11 +7,8 @@ class NewExpenseForm(forms.ModelForm):
         model = Expense
         fields = ('category',)
 
-class UpdateAllocationForm(forms.ModelForm):
-
-    class Meta:
-        model = Expense
-        fields = ('allocated',)
+class UpdateAllocationForm(forms.Form):
+    allocate = forms.DecimalField(max_digits=8, decimal_places=2)
 
 class NewTransactionForm(forms.ModelForm):
 

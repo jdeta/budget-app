@@ -3,12 +3,13 @@ from django.db.models import Sum
 from .models import Expense, Transaction
 from .forms import NewTransactionForm, NewExpenseForm, UpdateAllocationForm
 from datetime import date, timedelta
+from decimal import Decimal
 
 
 def budget_dashboard(request):
     expenses = Expense.objects.all()
-    total_transactions = Transaction.objects.all().aggregate(Sum('inflow'))['inflow__sum'] or 0.00
-    total_allocations = expenses.aggregate(Sum('allocated'))['allocated__sum'] or 0.00
+    total_transactions = Transaction.objects.all().aggregate(Sum('inflow'))['inflow__sum'] or Decimal(0.00)
+    total_allocations = expenses.aggregate(Sum('allocated'))['allocated__sum'] or Decimal(0.00)
     unbudgeted = total_transactions - total_allocations
     context = {
             'expenses':expenses,
@@ -53,11 +54,12 @@ def expense_detail(request, expense_id):
     specific_expense = get_object_or_404(Expense, pk=expense_id)
 
     if request.method == 'POST':
-        allocated_form = UpdateAllocationForm(request.POST, instance=specific_expense)
+        allocated_form = UpdateAllocationForm(request.POST)
 
         if allocated_form.is_valid():
-            allocated_form.save()
+            specific_expense.allocated = specific_expense.allocated + allocated_form.cleaned_data['allocate']
+            specific_expense.save()
             return redirect('/')
     else:
-        allocated_form = UpdateAllocationForm(instance=specific_expense)
+        allocated_form = UpdateAllocationForm()
         return render(request, 'budget_app/expense_detail.html', {'specific_expense':specific_expense, 'allocated_form':allocated_form})
