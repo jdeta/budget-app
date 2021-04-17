@@ -4,6 +4,8 @@
 
 		{{ specific_expense }}
 			<h2>Allocate Money</h2>
+			<br>
+			Currently Allocated:{{ specific_expense.allocated }}
         		        <form method="POST">
 					{% csrf_token %}
                         		{{ allocated_form }}
