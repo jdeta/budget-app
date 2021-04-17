@@ -7,7 +7,9 @@ from datetime import date, timedelta
 
 def budget_dashboard(request):
     expenses = Expense.objects.all()
-    unbudgeted = Transaction.objects.all().aggregate(Sum('inflow'))['inflow__sum']
+    total_transactions = Transaction.objects.all().aggregate(Sum('inflow'))['inflow__sum'] or 0.00
+    total_allocations = expenses.aggregate(Sum('allocated'))['allocated__sum'] or 0.00
+    unbudgeted = total_transactions - total_allocations
     context = {
             'expenses':expenses,
             'unbudgeted':unbudgeted,
