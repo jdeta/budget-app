@@ -3,13 +3,13 @@ from django.db.models import Sum
 from .models import Expense, Transaction
 from .forms import NewTransactionForm, NewExpenseForm, UpdateAllocationForm
 from datetime import date, timedelta
-from decimal import Decimal
+from decimal import Decimal as dc
 
 
 def budget_dashboard(request):
     expenses = Expense.objects.all()
-    total_transactions = Transaction.objects.all().aggregate(Sum('inflow'))['inflow__sum'] or Decimal(0.00)
-    total_allocations = expenses.aggregate(Sum('allocated'))['allocated__sum'] or Decimal(0.00)
+    total_transactions = Transaction.objects.all().aggregate(Sum('inflow'))['inflow__sum'] or dc(0.00)
+    total_allocations = expenses.aggregate(Sum('allocated'))['allocated__sum'] or dc(0.00)
     unbudgeted = total_transactions - total_allocations
     context = {
             'expenses':expenses,
