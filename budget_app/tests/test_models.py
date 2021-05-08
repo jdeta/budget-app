@@ -1,7 +1,7 @@
 from django.test import TestCase
 from datetime import date
 
-from budget_app.models import Expense, Transaction
+from budget_app.models import Expense, Transaction, Category
 
 
 class ExpenseModelTests(TestCase):
@@ -9,7 +9,8 @@ class ExpenseModelTests(TestCase):
     @classmethod
     def setUpTestData(cls):
         #sample data for running tests
-        Expense.objects.create(month ='Apr 2021', category='mortgage', allocated=600, disbursed=0, remaining=600)
+        test_category = Category.objects.create(name='mortgage')
+        Expense.objects.create(month ='Apr 2021', category=test_category, allocated=600, disbursed=0, remaining=600)
 
     def test_month_label(self):
         expense_item = Expense.objects.get(pk=1)
@@ -56,18 +57,9 @@ class ExpenseModelTests(TestCase):
         month_length = expense_item._meta.get_field('month').max_length
         self.assertEqual(month_length, 9)
 
-    def test_category_max_length(self):
-        expense_item = Expense.objects.get(pk=1)
-        category_length = expense_item._meta.get_field('category').max_length
-        self.assertEqual(category_length, 64)
-
     def test_month_str_output(self):
         expense_item = Expense.objects.get(pk=1)
         self.assertEqual(expense_item.month, str(expense_item.month))
-
-    def test_category_string_output(self):
-        expense_item = Expense.objects.get(pk=1)
-        self.assertEqual(expense_item.category, str(expense_item.category))
 
 
 class TransactionModelsTests(TestCase):
@@ -75,7 +67,15 @@ class TransactionModelsTests(TestCase):
     @classmethod
     def setUpTestData(cls):
         #sample data for running tests
-        Transaction.objects.create(date='2021-04-01', category='paycheck', recipient='me', inflow=2000, outflow=0, note='bi-weekly paycheck')
+        test_category = Category.objects.create(name='paycheck')
+        Transaction.objects.create(
+                date='2021-04-01',
+                category=test_category,
+                recipient='me',
+                inflow=2000,
+                outflow=0,
+                note='bi-weekly paycheck'
+                )
 
     def test_date_label(self):
         fake_transaction = Transaction.objects.get(pk=1)
@@ -122,20 +122,26 @@ class TransactionModelsTests(TestCase):
         recipient_length = fake_transaction._meta.get_field('recipient').max_length
         self.assertEqual(recipient_length, 64)
 
-    def test_category_max_length(self):
-        fake_transaction = Transaction.objects.get(pk=1)
-        category_length = fake_transaction._meta.get_field('category').max_length
-        self.assertEqual(category_length, 64)
-
     def test_recipient_str_output(self):
         fake_transaction = Transaction.objects.get(pk=1)
         self.assertEqual(fake_transaction.recipient, str(fake_transaction.recipient))
 
-    def test_category_string_output(self):
-        fake_transaction = Transaction.objects.get(pk=1)
-        self.assertEqual(fake_transaction.category, str(fake_transaction.category))
-
     def test_note_string_output(self):
         fake_transaction = Transaction.objects.get(pk=1)
         self.assertEqual(fake_transaction.note, str(fake_transaction.note))
-                                                                              
+
+class CategoryModelTests(TestCase):
+
+    @classmethod
+    def setUpTestData(cls):
+        Category.objects.create(name='mortgage')
+
+    def test_category_label(self):
+        test_category = Category.objects.get(pk=1)
+        category_label = test_category._meta.get_field('name').verbose_name
+        self.assertEqual(category_label, 'name')
+
+    def test_category_length(self):
+        test_category = Category.objects.get(pk=1)
+        category_length = test_category._meta.get_field('name').max_length
+        self.assertEqual(category_length, 64)
