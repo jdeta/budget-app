@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.db.models import Sum
 from .models import Expense, Transaction
-from .forms import NewTransactionForm, NewExpenseForm, UpdateAllocationForm
+from .forms import NewTransactionForm, NewExpenseForm, UpdateAllocationForm, NewCategoryForm
 from datetime import date, timedelta
 from decimal import Decimal as dc
 
@@ -29,7 +29,11 @@ def new_transaction(request):
 
     else:
         transaction_form = NewTransactionForm()
-        return render(request, 'budget_app/transaction_new.html', {'transaction_form': transaction_form})
+        category_form = NewCategoryForm()
+        return render(request, 'budget_app/transaction_new.html', {
+            'transaction_form': transaction_form,
+            'category_form': category_form
+            })
 
 
 def new_expense(request):
@@ -63,3 +67,15 @@ def expense_detail(request, expense_id):
     else:
         allocated_form = UpdateAllocationForm()
         return render(request, 'budget_app/expense_detail.html', {'specific_expense':specific_expense, 'allocated_form':allocated_form})
+
+def new_category(request):
+    if request.method == 'POST':
+        category_form = NewCategoryForm(request.Post)
+
+        if category_form.isvalid():
+            category_form.save()
+            return redirect('/')
+
+    else:
+        category_form = NewCategoryForm()
+        return render(request, 'budget_app/category_new.html', {'category_form':category_form})

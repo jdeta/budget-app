@@ -1,0 +1,13 @@
+{% extends 'budget_app/base.html' %}
+  
+        {% block page_content %}
+
+	<h2>New Category</h2>
+               <form method="POST">
+		        {% csrf_token %}
+                        {{ category_form }}
+                	<button type="submit"class="btn btn-primary">Add</button>
+                </form>
+
+        {% endblock %}
+~                                                        

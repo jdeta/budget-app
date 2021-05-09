@@ -1,5 +1,5 @@
 from django import forms
-from .models import Expense, Transaction
+from .models import Expense, Transaction, Category
 
 class NewExpenseForm(forms.ModelForm):
 
@@ -15,3 +15,9 @@ class NewTransactionForm(forms.ModelForm):
     class Meta:
         model = Transaction
         fields = ('date', 'recipient', 'category', 'inflow', 'outflow', 'note')
+
+class NewCategoryForm(forms.ModelForm):
+
+    class Meta:
+        model = Category
+        fields = ('name',)
