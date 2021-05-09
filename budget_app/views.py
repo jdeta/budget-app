@@ -70,11 +70,11 @@ def expense_detail(request, expense_id):
 
 def new_category(request):
     if request.method == 'POST':
-        category_form = NewCategoryForm(request.Post)
+        category_form = NewCategoryForm(request.POST)
 
-        if category_form.isvalid():
+        if category_form.is_valid():
             category_form.save()
-            return redirect('/')
+            return redirect('budget_app:new_transaction')
 
     else:
         category_form = NewCategoryForm()
