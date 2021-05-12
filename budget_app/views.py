@@ -50,8 +50,9 @@ def new_expense(request):
             return redirect('/')
 
     else:
+        category_form = NewCategoryForm()
         expense_form = NewExpenseForm()
-        return render(request, 'budget_app/expense_new.html', {'expense_form': expense_form})
+        return render(request, 'budget_app/expense_new.html', {'expense_form': expense_form, 'category_form':category_form})
 
 
 def expense_detail(request, expense_id):
@@ -62,19 +63,32 @@ def expense_detail(request, expense_id):
 
         if allocated_form.is_valid():
             specific_expense.allocated = specific_expense.allocated + allocated_form.cleaned_data['allocate']
+            specific_expense.remaining = specific_expense.allocated - specific_expense.disbursed
             specific_expense.save()
             return redirect('/')
     else:
         allocated_form = UpdateAllocationForm()
         return render(request, 'budget_app/expense_detail.html', {'specific_expense':specific_expense, 'allocated_form':allocated_form})
 
-def new_category(request):
+def new_category_transaction(request):
     if request.method == 'POST':
         category_form = NewCategoryForm(request.POST)
 
         if category_form.is_valid():
             category_form.save()
             return redirect('budget_app:new_transaction')
+
+    else:
+        category_form = NewCategoryForm()
+        return render(request, 'budget_app/category_new.html', {'category_form':category_form})
+
+def new_category_expense(request):
+    if request.method == 'POST':
+        category_form = NewCategoryForm(request.POST)
+
+        if category_form.is_valid():
+            category_form.save()
+            return redirect('budget_app:new_expense')
 
     else:
         category_form = NewCategoryForm()
