@@ -23,6 +23,7 @@ def new_transaction(request):
     if request.method == 'POST':
         transaction_form = NewTransactionForm(request.POST)
 
+
         if transaction_form.is_valid():
             transaction_form.save()
             return redirect('/')
@@ -30,10 +31,11 @@ def new_transaction(request):
     else:
         transaction_form = NewTransactionForm()
         category_form = NewCategoryForm()
-        return render(request, 'budget_app/transaction_new.html', {
+        context = {
             'transaction_form': transaction_form,
             'category_form': category_form
-            })
+            }
+        return render(request, 'budget_app/transaction_new.html', context)
 
 
 def new_expense(request):

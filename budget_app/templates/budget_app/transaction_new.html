@@ -4,7 +4,7 @@
 
 		<h2>New Transaction </h2>
 		<form method="POST">{% csrf_token %}
-			{{ transaction_form }}
+			{{ transaction_form.as_table }}
 			<button type="submit"class="btn btn-primary">Add</button>
 		</form>
 		<a class="btn btn-primary" href="{% url 'budget_app:new_category_transaction' %}">
