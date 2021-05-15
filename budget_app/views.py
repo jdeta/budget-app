@@ -4,7 +4,7 @@ from .models import Expense, Transaction
 from .forms import NewTransactionForm, NewExpenseForm, UpdateAllocationForm, NewCategoryForm
 from datetime import date, timedelta
 from decimal import Decimal as dc
-
+from .utils import update_expense
 
 def budget_dashboard(request):
     expenses = Expense.objects.all()
@@ -25,7 +25,9 @@ def new_transaction(request):
 
 
         if transaction_form.is_valid():
-            transaction_form.save()
+            transaction_added = transaction_form.save(commit=False)
+            update_expense(transaction_added)
+            transaction_added.save()
             return redirect('/')
 
     else:
