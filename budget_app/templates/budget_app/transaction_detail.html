@@ -1,0 +1,31 @@
+{% extends 'budget_app/base.html' %}
+
+{% block page_content %}
+
+<table class="table">
+        <thead>
+                <tr>
+                        <th scope="col">Date</th>
+                        <th scope="col">Recipient</th>
+                        <th scope="col">Category</th>
+                        <th scope="col">Inflow</th>
+                        <th scope="col">Outflow</th>
+                        <th scope="col">Note</th>
+                </tr>
+        </thead>
+        {% for transaction in monthly_transactions %}
+                <tbody>
+                        <tr>
+                                <td>{{ transaction.date }}</td>
+                                <td>{{ transaction.recipient }}</th>
+                                <td>{{ transaction.category }}</td>
+                                <td>{{ transaction.inflow }}</td>
+                                <td>{{ transaction.outflow }}</td>
+                                <td>{{ transaction.note }}</td>
+                        </tr>
+                </tbody>
+        {% endfor %}
+</table>
+
+
+{% endblock %}

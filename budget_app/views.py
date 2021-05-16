@@ -103,3 +103,7 @@ def new_category_expense(request):
     else:
         category_form = NewCategoryForm()
         return render(request, 'budget_app/category_new.html', {'category_form':category_form})
+
+def transaction_detail(request):
+    monthly_transactions = Transaction.objects.all()
+    return render(request, 'budget_app/transaction_detail.html', {'monthly_transactions':monthly_transactions})
