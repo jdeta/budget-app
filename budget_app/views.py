@@ -72,7 +72,13 @@ def expense_detail(request, expense_id):
             return redirect('/')
     else:
         allocated_form = UpdateAllocationForm()
-        return render(request, 'budget_app/expense_detail.html', {'specific_expense':specific_expense, 'allocated_form':allocated_form})
+        related_transactions = Transaction.objects.filter(category=specific_expense.category)
+        context = {
+                'specific_expense':specific_expense,
+                'allocated_form':allocated_form,
+                'related_transactions':related_transactions
+                }
+        return render(request, 'budget_app/expense_detail.html', context)
 
 def new_category_transaction(request):
     if request.method == 'POST':
