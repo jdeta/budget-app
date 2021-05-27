@@ -9,7 +9,7 @@ class Category(models.Model):
       return self.name
 
 class Expense(models.Model):
-    month = models.CharField(max_length=9)
+    month = models.DateField(default=date.today)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     allocated = models.DecimalField(max_digits=8, decimal_places=2)
     disbursed = models.DecimalField(max_digits=8, decimal_places=2)
@@ -19,7 +19,7 @@ class Expense(models.Model):
         return f'{self.category} {self.month}'
 
 class Transaction(models.Model):
-    date =models.DateField(default=date.today)
+    date = models.DateField(default=date.today)
     recipient = models.CharField(max_length=64)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     inflow = models.DecimalField(max_digits=8, decimal_places=2)

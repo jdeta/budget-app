@@ -10,7 +10,7 @@ class ExpenseModelTests(TestCase):
     def setUpTestData(cls):
         #sample data for running tests
         test_category = Category.objects.create(name='mortgage')
-        Expense.objects.create(month ='Apr 2021', category=test_category, allocated=600, disbursed=0, remaining=600)
+        Expense.objects.create(month ='2021-04-01', category=test_category, allocated=600, disbursed=0, remaining=600)
 
     def test_month_label(self):
         expense_item = Expense.objects.get(pk=1)
@@ -51,15 +51,6 @@ class ExpenseModelTests(TestCase):
          expense_item = Expense.objects.get(pk=1)
          remaining_digits = expense_item._meta.get_field('remaining').max_digits
          self.assertEqual(remaining_digits, 8)
-
-    def test_month_max_length(self):
-        expense_item = Expense.objects.get(pk=1)
-        month_length = expense_item._meta.get_field('month').max_length
-        self.assertEqual(month_length, 9)
-
-    def test_month_str_output(self):
-        expense_item = Expense.objects.get(pk=1)
-        self.assertEqual(expense_item.month, str(expense_item.month))
 
 
 class TransactionModelsTests(TestCase):
