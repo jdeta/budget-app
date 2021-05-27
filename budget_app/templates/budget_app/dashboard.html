@@ -1,25 +1,25 @@
 {% extends 'budget_app/base.html' %}
 
-{% block page_content %}
+	{% block page_content %}
 
-<button type="button" class="btn btn-link">
-<a href="{% url 'budget_app:new_expense' %}">
-      Add expense
-</a>
-</button>
+		<button type="button" class="btn btn-link">
+			<a href="{% url 'budget_app:new_expense' %}">
+		      Add expense
+			</a>
+		</button>
 
-<a class="btn btn-primary" href="{% url 'budget_app:new_transaction' %}">
-	New Transaction
-</a>
+		<a class="btn btn-primary" href="{% url 'budget_app:new_transaction' %}">
+		New Transaction
+		</a>
 
-<a class="btn btn-primary" href="{% url 'budget_app:transaction_detail' %}">
-        View all Transactions
-</a>
+		<a class="btn btn-primary" href="{% url 'budget_app:transaction_detail' %}">
+	        View all Transactions
+		</a>
 
-<br>
-<b>Unbudgeted</b>
-<br>
-${{ unbudgeted|floatformat:2 }}
+	<br>
+		<b>Unbudgeted</b>
+	<br>
+		${{ unbudgeted|floatformat:2 }}
 
 
 		<table class="table">
@@ -29,15 +29,17 @@ ${{ unbudgeted|floatformat:2 }}
 		      <th scope="col">Category</th>
 		      <th scope="col">Disbursed</th>
 		      <th scope="col">Remaining</th>
+		      <th scope="col"></th>
     		    </tr>
 		  </thead>
 		{% for expense in expenses %}
 		  <tbody>
 		    <tr>
 			    <td>{{ expense.allocated }}</td>
-			    <td><a href="{% url 'budget_app:expense_detail' expense.id %}">{{ expense.category }}</a></th>
+			    <td><a href="{% url 'budget_app:expense_detail' expense.id %}">{{ expense.category }}</a></td>
 			    <td>{{ expense.disbursed }}</td>
 			    <td>{{ expense.remaining }}</td>
+			    <td><a class="btn btn-default" href="{% url 'budget_app:del_expense' expense.id %}">Delete</a></td>
 		    </tr>
 		  </tbody>
 	        {% endfor %}
