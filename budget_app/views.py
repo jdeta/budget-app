@@ -4,10 +4,10 @@ from .models import Expense, Transaction
 from .forms import NewTransactionForm, NewExpenseForm, UpdateAllocationForm, NewCategoryForm
 from datetime import date, timedelta
 from decimal import Decimal as dc
-from .utils import update_expense
+from .utils import update_expense, latest_months_expenses
 
 def budget_dashboard(request):
-    expenses = Expense.objects.all()
+    expenses = latest_months_expenses()
     total_transactions = Transaction.objects.all().aggregate(Sum('inflow'))['inflow__sum'] or dc(0.00)
     total_allocations = expenses.aggregate(Sum('allocated'))['allocated__sum'] or dc(0.00)
     unbudgeted = total_transactions - total_allocations

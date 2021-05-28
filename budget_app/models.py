@@ -15,6 +15,9 @@ class Expense(models.Model):
     disbursed = models.DecimalField(max_digits=8, decimal_places=2)
     remaining = models.DecimalField(max_digits=8, decimal_places=2)
 
+    class Meta:
+        get_latest_by = 'month'
+
     def __str__(self):
         return f'{self.category} {self.month}'
 
