@@ -12,10 +12,29 @@ def update_expense(new_transaction):
         pass
 
 
-def latest_months_expenses():
-    latest_expense = Expense.objects.filter(month__isnull=False).latest()
-    latest_date = str(latest_expense.month)
-    stripped_date = datetime.strptime(latest_date, "%Y-%m-%d")
 
-    all_current_expenses = Expense.objects.filter(month__month=stripped_date.month)
-    return all_current_expenses
+def latest_month():
+    latest_expense = Expense.objects.filter(month__isnull=False).latest()
+    month_string = str(latest_expense.month)
+    strpd_date = datetime.strptime(month_string, "%Y-%m-%d")
+    return strpd_date
+
+def latest_months_expenses():
+    current_month = latest_month()
+    current_expenses = Expense.objects.filter(month__month=current_month.month)
+    return current_expenses
+
+#def new_month():
+#    to_copy = latest_months_expenses()
+#    old_expense_list = []
+#    new_expense_list = []
+#
+#    for expense in to_copy:
+#        old_expense_list.append(expense)
+#    
+#    for item in old_expense_list:
+#        new_expense_list.append(Expense(month=item.month+timedelta(month=1), category=item.category, allocated=0.00,disbursed=0.00,remaining=0.00)
+#
+#        Expense.objects.bulk_create(new_expense_list
+
+
