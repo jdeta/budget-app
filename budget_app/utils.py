@@ -1,6 +1,7 @@
 from django.core.exceptions import ObjectDoesNotExist
 from .models import Expense
-from datetime import date, datetime
+from datetime import date, datetime, timedelta
+from dateutil.relativedelta import relativedelta
 
 def update_expense(new_transaction):
     if Expense.objects.filter(category=new_transaction.category).exists():
@@ -24,17 +25,22 @@ def latest_months_expenses():
     current_expenses = Expense.objects.filter(month__month=current_month.month)
     return current_expenses
 
-#def new_month():
-#    to_copy = latest_months_expenses()
-#    old_expense_list = []
-#    new_expense_list = []
-#
-#    for expense in to_copy:
-#        old_expense_list.append(expense)
-#    
-#    for item in old_expense_list:
-#        new_expense_list.append(Expense(month=item.month+timedelta(month=1), category=item.category, allocated=0.00,disbursed=0.00,remaining=0.00)
-#
-#        Expense.objects.bulk_create(new_expense_list
+def new_month():
+    to_copy = latest_months_expenses()
+    old_expense_list = []
+    new_expense_list = []
+
+    for expense in to_copy:
+        old_expense_list.append(expense)
+    
+    for item in old_expense_list:
+        new_expense_list.append(Expense(
+                month=item.month+relativedelta(months=+1),
+                category=item.category,
+                allocated=0.00,
+                disbursed=0.00,
+                remaining=0.00))
+
+        Expense.objects.bulk_create(new_expense_list)
 
 

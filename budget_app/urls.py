@@ -11,5 +11,7 @@ urlpatterns = [
     path('expense/delete/<int:expense_id>/',views.del_expense, name='del_expense'),
     path('transaction/new', views.new_transaction, name='new_transaction'),
     path('expense/category/new', views.new_category_expense, name = 'new_category_expense'),
-    path('transaction/category/new', views.new_category_transaction, name='new_category_transaction')
+    path('transaction/category/new', views.new_category_transaction, name='new_category_transaction'),
+    path('month_new', views.add_next_month, name = 'add_next_month')
+    
 ]

@@ -4,7 +4,7 @@ from .models import Expense, Transaction
 from .forms import NewTransactionForm, NewExpenseForm, UpdateAllocationForm, NewCategoryForm
 from datetime import date, timedelta
 from decimal import Decimal as dc
-from .utils import update_expense, latest_months_expenses
+from .utils import update_expense, latest_months_expenses, new_month
 
 def budget_dashboard(request):
     expenses = latest_months_expenses()
@@ -112,3 +112,10 @@ def del_expense(request, expense_id):#needs DELETE method added
     to_delete = get_object_or_404(Expense, pk=expense_id)
     to_delete.delete()
     return redirect('/')
+
+def add_next_month(request):
+    if request.method == "POST":
+        new_month()
+        return redirect('/')
+    else:
+        return redirect('/')

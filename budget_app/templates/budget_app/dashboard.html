@@ -9,12 +9,16 @@
 		</button>
 
 		<a class="btn btn-primary" href="{% url 'budget_app:new_transaction' %}">
-		New Transaction
+			New Transaction
 		</a>
 
 		<a class="btn btn-primary" href="{% url 'budget_app:transaction_detail' %}">
-	        View all Transactions
+	        	View all Transactions
 		</a>
+		<form action="{% url 'budget_app:add_next_month' %}" method="POST">
+			{% csrf_token %}
+			<button type="submit" class="btn-btn-primary">New Month</button>
+		</form>
 
 	<br>
 		<b>Unbudgeted</b>
