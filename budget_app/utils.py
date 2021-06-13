@@ -41,6 +41,6 @@ def new_month():
                 disbursed=0.00,
                 remaining=0.00))
 
-        Expense.objects.bulk_create(new_expense_list)
+    Expense.objects.bulk_create(new_expense_list)
 
 
