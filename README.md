@@ -8,4 +8,22 @@ The purpose of this project is to demonstrate an understanding of working with a
     sudo apt install build-essential libssl-dev libffi-dev python-dev
     sudo apt install -y python3-venv
 <br>
-Install Postrgres
+Postgres Installation
+    
+    sudo apt install postgresql postgresql-contrib
+    sudo apt install libpq-dev
+    sudo su - postgres
+    psql
+<br>
+Postgres Configuration
+
+    CREATE DATABASE budget_appdb;
+    CREATE USER dbuser WITH PASSWORD 'password';
+    ALTER ROLE dbuser SET client_encoding TO 'utf8';
+    ALTER ROLE dbuser SET default_transaction_isolation TO 'read committed';
+    ALTER ROLE dbuser SET timezone TO 'UTC';
+    GRANT ALL PRIVELAGES ON DATABASE budget_appdb TO dbuser;
+    ALTER USER dbuser CREATEDB;
+    \q
+    exit
+    
