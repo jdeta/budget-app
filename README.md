@@ -29,3 +29,11 @@ Postgres Configuration
     \q
     exit
     
+Create a virtual environment
+
+    mkdir budget_project
+    cd budget_project
+    python3 -m venv testenv
+    source testenv/bin/activate
+ <br>   
+ 
