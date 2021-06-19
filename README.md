@@ -11,6 +11,6 @@ sudo apt install -y python3-venv
 sudo apt install postrgresql postgresql-contrib
 sudo apt install libpq-dev
 
-  sudo - su postgres
+    sudo - su postgres
 
 psql
