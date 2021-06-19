@@ -9,14 +9,14 @@ Environment Setup
     sudo apt install -y python3-pip
     sudo apt install build-essential libssl-dev libffi-dev python-dev
     sudo apt install -y python3-venv
-<br>
+
 Postgres Installation
     
     sudo apt install postgresql postgresql-contrib
     sudo apt install libpq-dev
     sudo su - postgres
     psql
-<br>
+
 Postgres Configuration
 
     CREATE DATABASE budget_appdb;
