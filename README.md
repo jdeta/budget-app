@@ -8,4 +8,4 @@ The purpose of this project is to demonstrate an understanding of working with a
     sudo apt install -y python3-pip
     sudo apt install build-essential libssl-dev python-dev
     sudo apt install -y python3-venv
-Install Postgres
+
