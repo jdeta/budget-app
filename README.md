@@ -44,4 +44,4 @@ Install Django and some other packages that we'll need
     
 ## Create a Django Project
 
-
+    django-admin.py startproject budget_site .
