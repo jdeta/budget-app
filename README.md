@@ -45,3 +45,14 @@ Install Django and some other packages that we'll need
 ## Create a Django Project
 
     django-admin.py startproject budget_site .
+
+The directory structure will look like this currently:
+
+    .
+    ├── manage.py
+    └── budget_site
+        ├── __init__.py
+        ├── asgi.py
+        ├── settings.py
+        ├── urls.py
+        └── wsgi.py
